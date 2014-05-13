@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TinyIoC;
 
 namespace Tests
@@ -6,6 +7,24 @@ namespace Tests
 	[TestClass]
 	public class TinyIoCTests
 	{
+		public DateTime XDaysFromNow(int days)
+		{
+			var now = DateTime.Now;
+			return now.AddDays(days);
+		}
+
+		public DateTime AddDays(int days, DateTime date)
+		{
+			return date.AddDays(days);
+		}
+
+		[TestMethod]
+		public void TestDummy()
+		{
+			// You can still use DateTime.Now in the call
+			this.AddDays(2, DateTime.Now);
+		}
+
 		[TestMethod]
 		public void TestLifecycleMgmt()
 		{
@@ -21,7 +40,7 @@ namespace Tests
 			var input = new TestClassPropertyDependencies();
 			container.BuildUp(input); // Properties are now set
 
-			Assert.IsTrue(input.Property1 != null); 
+			Assert.IsTrue(input.Property1 != null);
 			Assert.IsTrue(input.Property2 == 0);
 			Assert.IsTrue(input.ConcreteProperty != null);
 		}
@@ -35,7 +54,7 @@ namespace Tests
 			// Factory override for parameter passing
 			container.Register<Ia>((c, p) => new A("something"));
 			var instance = container.Resolve<Ib>();
-			
+
 			Assert.IsTrue(instance != null);
 		}
 
@@ -57,22 +76,40 @@ namespace Tests
 		}
 	}
 
-	public interface IMyInterface { }
-	public class MyClass: IMyInterface { }
+	public interface IMyInterface
+	{
+	}
 
-	public interface Ia { }
+	public class MyClass : IMyInterface
+	{
+	}
+
+	public interface Ia
+	{
+	}
 
 	public class A : Ia
 	{
 		private string a;
-		public A(string _a) { this.a = _a; }
+
+		public A(string _a)
+		{
+			this.a = _a;
+		}
 	}
 
-	public interface Ib { }
+	public interface Ib
+	{
+	}
+
 	public class B : Ib
 	{
 		private Ia a;
-		public B(Ia _a){ this.a = _a; }
+
+		public B(Ia _a)
+		{
+			this.a = _a;
+		}
 	}
 
 	internal class TestClassPropertyDependencies
@@ -87,7 +124,15 @@ namespace Tests
 		public TestClassDefaultCtor ConcreteProperty { get; set; }
 	}
 
-	public interface ITestInterface {}
-	public class MyConcreteType : ITestInterface { }
-	public class TestClassDefaultCtor{}
+	public interface ITestInterface
+	{
+	}
+
+	public class MyConcreteType : ITestInterface
+	{
+	}
+
+	public class TestClassDefaultCtor
+	{
+	}
 }

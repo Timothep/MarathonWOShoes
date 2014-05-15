@@ -28,11 +28,15 @@ namespace Tests
 		public async void TestHttpClient()
 		{
 			using (HttpClient client = new HttpClient())
-			using (HttpResponseMessage response = await client.GetAsync("url"))
-			using (HttpContent content = response.Content)
 			{
-				// Read the string.
-				string result = await content.ReadAsStringAsync();
+				using (HttpResponseMessage response = await client.GetAsync("url"))
+				{
+					using (HttpContent content = response.Content)
+					{
+						// Read the string.
+						string result = await content.ReadAsStringAsync();
+					}
+				}
 			}
 		}
 
@@ -42,7 +46,7 @@ namespace Tests
 			var client = new RestClient("url");
 			var request = new RestRequest("/", Method.GET);
 			var response = client.Execute(request);
-			var content = response.Content;
+			Console.WriteLine(response.Content);
 
 			// Or async
 			//client.ExecuteAsync(request, response => {

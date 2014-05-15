@@ -51,47 +51,9 @@ namespace Tests
 			// Bad Boys
 		}
 
-		[TestMethod]
-		public void TestLinq2Json()
-		{
-			JObject jobj = JObject.Parse(@"{
-				'CPU': 'Intel',
-				'Drives': [
-					'DVD read/writer',
-					'500 gigabyte hard drive'
-				]
-			}");
+		
 
-			// Intel
-			string cpu = (string)jobj["CPU"]; 
-		}
-
-		[TestMethod]
-		public void TestSchemaValidation()
-		{
-			string schemaJson = @"{
-				'description': 'A person',
-				'type': 'object',
-				'properties':
-				{
-					'name': {'type':'string'},
-					'hobbies': {
-						'type': 'array',
-						'items': {'type':'string'}
-					}
-				}
-			}";
-
-			JsonSchema schema = JsonSchema.Parse(schemaJson);
-
-			JObject person = JObject.Parse(@"{
-				'name': 'James',
-				'hobbies': ['.NET', 'Blogging', 'Reading', 'Xbox', 'LOLCATS']
-			}");
-
-			bool valid = person.IsValid(schema);
-			// true
-		}
+		
 
 		[TestMethod]
 		public void TestJsonFx()
@@ -101,6 +63,17 @@ namespace Tests
 			string input = @"{ ""foo"": true, ""array"": [ 42, false, ""Hello!"", null ] }";
 			dynamic output = reader.Read(input);
 			Console.WriteLine(output.array[0]); // 42
+		}
+
+		[TestMethod]
+		public void TestJsonFxVSLinq2Json()
+		{
+			var reader = new JsonFx.Json.JsonReader();
+
+			string input = @"{ 'CPU': 'Intel', 'Drives': [ 'DVD read/writer', '500 gigabyte hard drive' ]	}";
+			dynamic output = reader.Read(input);
+			Assert.AreEqual(output.CPU, "Intel");
+			Assert.AreEqual(output.Drives[0], "DVD read/writer");
 		}
 
 		public class Product

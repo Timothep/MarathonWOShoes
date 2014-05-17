@@ -53,7 +53,7 @@ namespace Tests
 			container.AutoRegister();
 			// Factory override for parameter passing
 			container.Register<Ia>((c, p) => new A("something"));
-			var instance = container.Resolve<Ib>();
+			Ib instance = container.Resolve<Ib>();
 
 			Assert.IsTrue(instance != null);
 		}

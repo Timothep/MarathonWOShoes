@@ -8,6 +8,11 @@ namespace Tests
 	[TestClass]
 	public class NodaTime
 	{
+		[TestMethod]
+		public void Test()
+		{
+			DateTime date = new DateTime(2014, 01, 01);
+		}
 
 		[TestMethod]
 		public void TestInstant()

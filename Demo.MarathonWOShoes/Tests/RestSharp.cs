@@ -41,6 +41,15 @@ namespace Tests
 		}
 
 		[TestMethod]
+		public async void TestHttpClient2()
+		{
+			var client = new HttpClient();
+			var response = await client.GetAsync("www.google.com");
+			var content = response.Content;
+			var result = await content.ReadAsStringAsync();
+		}
+
+		[TestMethod]
 		public void TestRestSharp()
 		{
 			//Ex1

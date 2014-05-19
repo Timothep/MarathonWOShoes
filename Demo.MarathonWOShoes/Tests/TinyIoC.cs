@@ -74,7 +74,27 @@ namespace Tests
 
 			Assert.IsTrue(implementation != null);
 		}
+
+		[TestMethod]
+		public void TestInjectConstructor()
+		{
+			var container = TinyIoCContainer.Current;
+			container.AutoRegister();
+			var instance = container.Resolve<ToBuild>();
+			Assert.IsNotNull(instance);
+		}
 	}
+
+	public class ToBuild
+	{
+		public ToBuild(IToInject toInject)
+		{
+		}
+	}
+	public interface IToInject
+	{
+	}
+	public class ToInject: IToInject{}
 
 	public interface IMyInterface
 	{

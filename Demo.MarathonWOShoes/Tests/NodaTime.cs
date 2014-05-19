@@ -34,33 +34,35 @@ namespace Tests
 			var tz = DateTimeZoneProviders.Tzdb.GetSystemDefault();
 
 			var localBeginDateTime = LocalDateTime.FromDateTime(new DateTime(2014, 05, 21, 8, 0, 0));
-			var zonedBeginDateTime = localBeginDateTime.InZoneStrictly(tz);
+			ZonedDateTime zonedBeginDateTime = localBeginDateTime.InZoneStrictly(tz);
 			
 			var localEndDateTime = LocalDateTime.FromDateTime(new DateTime(2014, 08, 23, 17, 0, 0));
-			var zonedEndDateTime = localEndDateTime.InZoneStrictly(tz);
+			ZonedDateTime zonedEndDateTime = localEndDateTime.InZoneStrictly(tz);
 
 			var karlsruheEntwicklerTageInterval = new Interval(zonedBeginDateTime.ToInstant(), zonedEndDateTime.ToInstant());
 			// 2014-05-21T06:00:00Z - 2014-08-23T15:00:00Z
 			Console.WriteLine(karlsruheEntwicklerTageInterval);
 		}
 
-		////ZonedDateTime
-		//var now = SystemClock.Instance.Now;
-		//var dtzi = DateTimeZoneProviders.Tzdb;
-		//var berlinTz = dtzi["Europe/Berlin"];
-		//var berlinNow = new ZonedDateTime(now, berlinTz);
-		////2014-05-08T22:42:08 Europe/Berlin (+02)
-		//Console.WriteLine(berlinNow);
+		[TestMethod]
+		public void TestPeriod()
+		{
+			////ZonedDateTime
+			var now = SystemClock.Instance.Now;
+			var dtzi = DateTimeZoneProviders.Tzdb;
+			var berlinTz = dtzi["Europe/Berlin"];
+			var berlinNow = new ZonedDateTime(now, berlinTz);
+			////2014-05-08T22:42:08 Europe/Berlin (+02)
+			//Console.WriteLine(berlinNow);
 
 
-		//var twentyFifth = new LocalDate(2018, 1, 16);
-		//var today = berlinNow.LocalDateTime.Date;
-		//var period = Period.Between(today, twentyFifth, PeriodUnits.Days);
-		//Console.WriteLine(period.Days); //1349 Days
-		////P 3Y 8M 8D
-		//Console.Write(Period.Between(today, twentyFifth, 
-		//	PeriodUnits.YearMonthDay));
-
+			var fourthieth = new LocalDate(2023, 4, 19);
+			var today = berlinNow.LocalDateTime.Date;
+			Period period = Period.Between(today, fourthieth, PeriodUnits.Days);
+			Console.WriteLine(period); //P3257D
+			Period between = Period.Between(today, fourthieth, PeriodUnits.YearMonthDay);
+			Console.WriteLine(between); //P8Y11M
+		}
 
 		////January 28th 2010 + 1 month = February 28th 2010
 		//Console.WriteLine(new DateTime(2010, 1, 28).AddMonths(1).ToShortDateString());

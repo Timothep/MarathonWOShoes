@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -17,10 +13,9 @@ namespace Tests
 		[TestMethod]
 		public void TestDateDeserialize()
 		{
-			const string json = @"{ ""Date"" : ""09/12/2013"" }";
+			const string json = "{ 'Name' : 'Blah', 'Date' : '09-12-2013' }";
 
-			var obj = JsonConvert.DeserializeObject<MyObject>(json,
-					new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+			var obj = JsonConvert.DeserializeObject<MyObject>(json, new IsoDateTimeConverter { DateTimeFormat = "dd-MM-yyyy" });
 
 			DateTime date = obj.Date;
 			Console.WriteLine("day = " + date.Day);
@@ -28,6 +23,7 @@ namespace Tests
 
 		internal class MyObject
 		{
+			public String Name { get; set; }
 			public DateTime Date { get; set; }
 		}
 

@@ -54,19 +54,25 @@
 					<h2>Why this talk?</h2>
 					<p>
 					<ul>
-						<li>Microsoft embraces OpenSource</li>
-						<li>Andreas Håkansson, OpenSource MVP 2014, Author of the Nancy Framework (@thecodejunkie)</li>
+						<li>Big companies: Frameworks, Small libs, OSS & Self-made</li>
+						<li>OpenSource at Microsoft</li>
+						<li>Why code barefoot?</li>
 						<li>Too much talk about the big projects</li>
 						<li>World class (small) libraries</li>
 						<li>Projects moving things forward</li>
-						<li>Tools saving our developers lives ; but which ones?</li>
+						<li>Tools saving our developers lives</li>
 					</ul>
 					</p>
 				</section>
 
 				<section>
 					<section>
-					<h1>My very own retrospective</h1>
+					<h2>My very own retrospective</h2>
+					<p>&nbsp;</p>
+					</section>
+
+					<section>
+					<h2>Twitter Survey</h2>
 					<p>
 						<img src="img\twitter.png" style="border:0; background: none;">
 					</p>
@@ -123,7 +129,7 @@
 				</section>
 
 				<section>
-					<h1>Short-list</h1>
+					<h2>Short-list</h2>
 					<p>
 						<ul>
 							<li>NodaTime</li>
@@ -140,7 +146,116 @@
 					</section>
 
 					<section>
+						<p>
+							<ul>
+								<img src="img\noda.png" style="border:0; background: none;">
+								<li>Port of JodaTime (Java)</li>
+								<li>Author: <a href="http://msmvps.com/blogs/jon_skeet/">Jon Skeets</a></li>
+								<li><a href="www.nodatime.org">www.nodatime.org</a></li>
+								<li>Nuget: nodatime</li>
+								<li>License Apache 2.0</li>
+							</ul>
+						</p>
+					</section>
 
+					<section>
+						<h2>What's wrong with DateTime anyway?</h2>
+						<p>
+							<ul>
+								<li>Two classes to rule them all: DateTime & TimeSpan</li>
+								<li>How to express a Date only? „May 21st“</li>
+								<li>How to express a Time period? „May 21st – 23rd 2014“</li>
+							</ul>
+						</p>
+						<p>
+							... it works but...
+							</br>
+							<img src="img\footgun.png" style="border:0; background: none;">
+						</p>
+					</section>
+
+					<section>
+						<h2>Instant</h2>
+						<p>
+							<ul>
+								<li>An „instant“ on the global timeline since the Unix epoch</li>
+								<li>Ex: Since „Jan. 1, 1970 Midnight UTC“</li>
+								<li>10,000 ticks in a millisecond</li>
+							</ul>
+							<pre>
+								<code>
+									var now = SystemClock.Instance.Now;
+									Console.WriteLine(now.Ticks); // 14001007108796083
+								</code>
+							</pre>
+						</p>						
+					</section>
+
+					<section>
+						<h2>Partial</h2>
+						<p>
+							<ul>
+								<li>Part of a local date/time</li>
+								<li>Not enough to represent a specific instant in time</li>
+							</ul>
+							<pre>
+								<code>
+									var myBirthday = new LocalDate(1983, 04, 19);
+									var noon = new LocalTime(12,0,0);
+								</code>
+							</pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>DateTimeZone, CalendarSystem, ZonedDateTime</h2>
+						<p>
+							<ul>
+								<li>One global DateTime</li>
+							</ul>
+							<pre>
+								<code>
+									var now = SystemClock.Instance.Now;
+
+									var dtzp = DateTimeZoneProviders.Tzdb;
+
+									var berlinTz = dtzp["Europe/Berlin"];
+
+									var berlinNow = new ZonedDateTime(now, berlinTz);
+									//2014-05-08T22:42:08 Europe/Berlin (+02)
+								</code>
+							</pre>
+							<ul>
+								<li>“Offset” „-02“ depends on what country you’re in, what calendar you’re using, the DaylightSavingTime etc.</li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Title</h2>
+						<p>
+							<ul>
+								<li></li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Title</h2>
+						<p>
+							<ul>
+								<li></li>
+							</ul>
+						</p>
+					</section>
+
+					<section>
+						<h2>Title</h2>
+						<p>
+							<ul>
+								<li></li>
+							</ul>
+						</p>
 					</section>
 				</section>
 

@@ -33,11 +33,14 @@ namespace Tests
 		{
 			var tz = DateTimeZoneProviders.Tzdb.GetSystemDefault();
 
+			var dtzi = DateTimeZoneProviders.Tzdb;
+			var londonTz = dtzi["Europe/London"];
+
 			var localBeginDateTime = LocalDateTime.FromDateTime(new DateTime(2014, 05, 21, 8, 0, 0));
 			ZonedDateTime zonedBeginDateTime = localBeginDateTime.InZoneStrictly(tz);
 			
 			var localEndDateTime = LocalDateTime.FromDateTime(new DateTime(2014, 08, 23, 17, 0, 0));
-			ZonedDateTime zonedEndDateTime = localEndDateTime.InZoneStrictly(tz);
+			ZonedDateTime zonedEndDateTime = localEndDateTime.InZoneStrictly(londonTz);
 
 			var karlsruheEntwicklerTageInterval = new Interval(zonedBeginDateTime.ToInstant(), zonedEndDateTime.ToInstant());
 			// 2014-05-21T06:00:00Z - 2014-08-23T15:00:00Z
